@@ -38,6 +38,9 @@ the directory of the stable readme.txt, so in this case, `/tags/4.3/screenshot-1
 == Changelog ==
 
 = 1.0.1 =
+* Fixed bug on signup option page when api file was not on place or out of date
+
+= 1.0.1 =
 * Add support to attach some concrete affiliate as parent for every new signed up user from wordpress.
 
 == Upgrade Notice ==
