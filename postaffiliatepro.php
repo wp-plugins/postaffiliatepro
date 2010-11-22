@@ -72,6 +72,10 @@ function pap_config_general_page() {
 
 function pap_config_signup_page() {
     echo "<h2>" . __( 'Signup options', 'signup-config' ) . "</h2>";
+	if (!apiFileExists()) {
+        echo 'API file does not exist! Upload it first.';
+        return;
+    }
     $session = new Gpf_Api_Session(get_option('pap-url') . "/server.php");
 			$login = $session->login(get_option('pap-merchant-name'), get_option('pap-merchant-password'));						
 			if($login == false) {				
