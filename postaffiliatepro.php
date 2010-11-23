@@ -28,6 +28,7 @@ function init_admin() {
 	register_setting('pap_config_general_page', 'pap-merchant-name');
 	register_setting('pap_config_general_page', 'pap-merchant-password');
 	register_setting('pap_config_signup_page', 'pap-sugnup-default-parent');
+	register_setting('pap_config_signup_page', 'pap-sugnup-default-status');
 }
 		
 
@@ -70,6 +71,15 @@ function pap_config_general_page() {
     </p></form></div>';
 }
 
+function print_option($value, $caption, $selectedValue = null) {
+	if ($selectedValue!=null && $value == $selectedValue) {
+		$selected = 'selected';
+	} else {
+		$selected = '';
+	}	
+	echo '<option value="'.$value.'" '.$selected.'>'.$caption.'</option>'; 
+}
+
 function pap_config_signup_page() {
     echo "<h2>" . __( 'Signup options', 'signup-config' ) . "</h2>";
 	if (!apiFileExists()) {
@@ -95,11 +105,11 @@ function pap_config_signup_page() {
     $recordset = $grid->getRecordset();
 
     echo  '<form method="post" action="options.php">';
+    settings_fields('pap_config_signup_page');						
     echo '<table class="form-table">					
             <tr valign="top">
             <th scope="row" valign="middle">Avaliable affiliates</th>
-            <td>';
-    settings_fields('pap_config_signup_page');						
+            <td>';    
     echo '<select name="pap-sugnup-default-parent">';
     $selectedOption = get_option('pap-sugnup-default-parent');
     echo '<option selected value="">none</option>';
@@ -111,11 +121,23 @@ function pap_config_signup_page() {
       }
       
     }
-    echo '</td>        
-            </tr>						
-        </table>';                        
     echo '</select>';
-    //TODO: ADD STATUS
+    echo '</td>        
+            </tr>';					
+    echo '<tr valign="top">
+            <th scope="row" valign="middle">Default signup status</th>
+            <td>';
+    $selectedStatus = get_option('pap-sugnup-default-status');
+    if ($selectedStatus=='') {$selectedStatus = 'P';}
+    echo '<select name="pap-sugnup-default-status">';        
+    print_option('A', 'Approved', $selectedStatus);
+    print_option('P', 'Pending', $selectedStatus);
+    print_option('D', 'Declined', $selectedStatus);        
+    echo '</select>';
+    echo '</td>        
+            </tr>';
+    echo     '</table>';                                                              
+    
     echo '<p class="submit">
             <input type="submit" class="button-primary" value="'. _('Save Changes') .'" />					
             </p>';	
@@ -137,6 +159,9 @@ function affiliate_new_user($user_id) {
     $affiliate->setNotificationEmail($user->user_email);
     if (get_option('pap-sugnup-default-parent')!==false && get_option('pap-sugnup-default-parent')!==null && get_option('pap-sugnup-default-parent')!='') {
         $affiliate->setParentUserId(get_option('pap-sugnup-default-parent'));
+    }
+    if (get_option('pap-sugnup-default-status')!==false && get_option('pap-sugnup-default-status')!==null && get_option('pap-sugnup-default-status')!='') {
+        $affiliate->setStatus(get_option('pap-sugnup-default-status'));
     }
     $affiliate->setData(1, $user->user_level);
     $affiliate->add();
