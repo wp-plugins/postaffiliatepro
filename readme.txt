@@ -1,9 +1,9 @@
 === Post Affiliate Pro ===
-Contributors: jurajsim (this should be a list of wordpress.org userid's)
+Contributors: jurajsim
 Tags: affiliate marketing, pap, post affiliate pro, qualityunit
 Requires at least: 3.0.0
 Tested up to: 3.0.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 
 This plugin integrates Post Affiliate Pro software into any Wordpress installation.
 
@@ -27,15 +27,21 @@ Supported features:
 
 = What is Post Affiliate Pro? =
 
-Check out [this page](href='http://www.qualityunit.com/postaffiliatepro/ "Affiliate software")
+Post Affiliate Pro is an award-winning affiliate software designed to empower or establish new affiliate program.
+For more info check out [this page](href='http://www.qualityunit.com/postaffiliatepro/ "Affiliate software")
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the directory of the stable readme.txt, so in this case, `/tags/4.3/screenshot-1.png` (or jpg, jpeg, gif)
-2. This is the second screen shot
+23. Plugin add extra menu to your WP installation
+24. General options screen
 
 == Changelog ==
+
+= 1.0.3 =
+* Added suuport for default status for signing affiliates
+
+= 1.0.2 =
+* Fixed bug on signup option page when API file was not on place or out of date
 
 = 1.0.1 =
 * Add support to attach some concrete affiliate as parent for every new signed up user from wordpress.
