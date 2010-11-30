@@ -32,7 +32,7 @@ function init_admin() {
 		
 
 function pap_add_primary_config_menu() {
-	 add_menu_page(__('Post Affiliate Pro','pap-menu'), __('PostAffiliatePro','pap-menu'), 'manage_options', 'pap-top-level-options-handle', 'pap_config_general_page', getPluginImgUrl() . '/menu-icon.png');
+	 add_menu_page(__('Post Affiliate Pro','pap-menu'), __('PostAffiliatePro','pap-menu'), 'manage_options', 'pap-top-level-options-handle', 'pap_config_general_page', getPluginImgUrl() . '/menu-icon.png', 0);
 	 add_submenu_page('pap-top-level-options-handle', __('Signup','signup-config'), __('Signup options','signup-config'), 'manage_options', 'signup-config-page', 'pap_config_signup_page');
 }
 
@@ -70,24 +70,6 @@ function pap_config_general_page() {
     </p></form></div>';
 }
 
-function beginForm($formName) {
-	echo  '<form method="post" action="options.php">';
-    settings_fields('pap_config_signup_page');						
-    echo '<table class="form-table">';				
-}
-
-function insertFormOption($caption, $description, $optionCode) {	
-	echo '<tr valign="top">
-            <th scope="row" valign="middle">'.$caption.'</th>
-            <td style="padding-bottom:2px;">';    
-    
-    echo $optionCode;
-    
-    echo '</td>';        
-    echo '<tr><td colspan="2" style="padding-top:0px;padding-bottom:15px">'.$description.'</td></tr>';
-    echo '</tr>';
-}
-
 function pap_config_signup_page() {
     echo "<h2>" . __( 'Signup options', 'signup-config' ) . "</h2>";
 	if (!apiFileExists()) {
@@ -111,41 +93,29 @@ function pap_config_signup_page() {
     $grid = $request->getGrid();
 
     $recordset = $grid->getRecordset();
-    
-    echo 'These options will aply when new affiliate will be inserted to Post Affiliate Pro.';
 
-	beginForm('pap_config_signup_page');
-	
-	$selectedOption = get_option('pap-sugnup-default-parent');
-	$papsugnupdefaultparent = '<select name="pap-sugnup-default-parent">';
-	if ($selectedOption!= '') {
-		$papsugnupdefaultparent .= '<option selected value="">none</option>';
-	}
+    echo  '<form method="post" action="options.php">';
+    echo '<table class="form-table">					
+            <tr valign="top">
+            <th scope="row" valign="middle">Avaliable affiliates</th>
+            <td>';
+    settings_fields('pap_config_signup_page');						
+    echo '<select name="pap-sugnup-default-parent">';
+    $selectedOption = get_option('pap-sugnup-default-parent');
+    echo '<option selected value="">none</option>';
     foreach($recordset as $rec) {
       if ($selectedOption == $rec->get('id'))  {
-          $papsugnupdefaultparent .= '<option selected value="'.$rec->get('id').'">' . $rec->get('username') . '(' . $rec->get('firstname').' '.$rec->get('lastname').')</option>';
+          echo '<option selected value="'.$rec->get('id').'">' . $rec->get('username') . '(' . $rec->get('firstname').' '.$rec->get('lastname').')</option>';
       } else {
-        $papsugnupdefaultparent .= '<option value="'.$rec->get('id').'">'. $rec->get('username') . ' (' . $rec->get('firstname').' '.$rec->get('lastname').')</option>';
+        echo '<option value="'.$rec->get('id').'">'. $rec->get('username') . ' (' . $rec->get('firstname').' '.$rec->get('lastname').')</option>';
       }
       
     }
-    $papsugnupdefaultparent .= '</select>';
-	
-	insertFormOption('Default parent affiliate', 'Every new affiliate which will be insertet to Post Affiliate Pro through WP, will have this selected affiliate as his parent.', $papsugnupdefaultparent);
-    
-    $selectedStatus = get_option('pap-sugnup-default-status');
-    $papsugnupdefaultstatus = '<select name="pap-sugnup-default-status">';    
-    if ($selectedStatus=='') {$selectedStatus = 'P';}
-          
-    $papsugnupdefaultstatus .= print_option('A', 'Approved', $selectedStatus, true);
-    $papsugnupdefaultstatus .= print_option('P', 'Pending', $selectedStatus, true);
-    $papsugnupdefaultstatus .= print_option('D', 'Declined', $selectedStatus, true);        
-    $papsugnupdefaultstatus .= '</select>';
-    
-    insertFormOption('Default signup status', 'Every new affiliate which will be insertet to Post Affiliate Pro through WP, will have this status.', $papsugnupdefaultstatus);                                                                   
-    
-    echo '</table>';
-    
+    echo '</td>        
+            </tr>						
+        </table>';                        
+    echo '</select>';
+    //TODO: ADD STATUS
     echo '<p class="submit">
             <input type="submit" class="button-primary" value="'. _('Save Changes') .'" />					
             </p>';	
