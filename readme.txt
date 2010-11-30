@@ -32,19 +32,19 @@ For more info check out [this page](href='http://www.qualityunit.com/postaffilia
 
 == Screenshots ==
 
-23. Plugin add extra menu to your WP installation
-24. General options screen
+1. Plugin add extra menu to your WP installation
+2. General options screen
 
 == Changelog ==
 
 = 1.0.6 =
-*chnage menu possition from top to bottom
+* chnage menu possition from top to bottom
 
 = 1.0.5 =
-*added some more accurate descriptions to signup options form
+* added some more accurate descriptions to signup options form
 
 = 1.0.4 =
-*minor bugfixes
+* minor bugfixes
 
 = 1.0.3 =
 * Added suuport for default status for signing affiliates
