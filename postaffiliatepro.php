@@ -32,7 +32,7 @@ function init_admin() {
 		
 
 function pap_add_primary_config_menu() {
-	 add_menu_page(__('Post Affiliate Pro','pap-menu'), __('PostAffiliatePro','pap-menu'), 'manage_options', 'pap-top-level-options-handle', 'pap_config_general_page', getPluginImgUrl() . '/menu-icon.png', 0);
+	 add_menu_page(__('Post Affiliate Pro','pap-menu'), __('PostAffiliatePro','pap-menu'), 'manage_options', 'pap-top-level-options-handle', 'pap_config_general_page', getPluginImgUrl() . '/menu-icon.png');
 	 add_submenu_page('pap-top-level-options-handle', __('Signup','signup-config'), __('Signup options','signup-config'), 'manage_options', 'signup-config-page', 'pap_config_signup_page');
 }
 
