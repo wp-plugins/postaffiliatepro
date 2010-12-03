@@ -4,18 +4,18 @@ Plugin Name: Post Affiliate Pro
 Plugin URI: http://www.qualityunit.com/#
 Description: Plugin that enable user signup integration integration with Post Affiliate Pro
 Author: QualityUnit
-Version: 1.0.1
+Version: 1.0.8
 Author URI: http://www.qualityunit.com
 License: GPL2
 */
 
 function apiFileExists() {
-	return file_exists(WP_PLUGIN_DIR . '/'.basename(dirname(__FILE__)).'/PapApi.class.php');
+	return file_exists(WP_PLUGIN_DIR . '/postaffiliatepro/PapApi.class.php');
 }
 
 //images subdirectory
 function getPluginImgUrl() {	
-	$url = WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/img/';
+	$url = WP_PLUGIN_URL . '/postaffiliatepro/img/';
 	return $url;
 }
 
@@ -28,6 +28,8 @@ function init_admin() {
 	register_setting('pap_config_general_page', 'pap-merchant-name');
 	register_setting('pap_config_general_page', 'pap-merchant-password');
 	register_setting('pap_config_signup_page', 'pap-sugnup-default-parent');
+	register_setting('pap_config_signup_page', 'pap-sugnup-default-status');
+	register_setting('pap_config_signup_page', 'pap-sugnup-sendconfiramtionemail');
 }
 		
 
@@ -49,18 +51,18 @@ function pap_config_general_page() {
         <td><input type="text" size="100" name="pap-url" value="'. get_option('pap-url').'" /></td>        
         </tr>
         <tr>
-            <td colspan="2">Exmaple: http://www.yoursite.com/affiliate/scritps</td>
+            <td colspan="2">Example: http://www.yoursite.com/affiliate/scritps</td>
         </tr>                
     </table>';
     echo '<table class="form-table">
         <tr valign="top">
-        <th scope="row" valign="middle">Merchnat name</th>
+        <th scope="row" valign="middle">Merchant Name</th>
         <td><input type="text" size="40" name="pap-merchant-name" value="'. get_option('pap-merchant-name').'" /></td>        
         </tr>               
     </table>';
     echo '<table class="form-table">
         <tr valign="top">
-        <th scope="row" valign="middle">Merchnat password</th>
+        <th scope="row" valign="middle">Merchant Password</th>
         <td><input type="password" size="20" name="pap-merchant-password" value="'. get_option('pap-merchant-password').'" /></td>        
         </tr>               
     </table>';
@@ -68,6 +70,19 @@ function pap_config_general_page() {
     echo '<p class="submit">
     <input type="submit" class="button-primary" value="'. _('Save Changes') .'" />					
     </p></form></div>';
+}
+
+function print_option($value, $caption, $selectedValue = null, $return = false) {
+	if ($selectedValue!=null && $value == $selectedValue) {
+		$selected = 'selected';
+	} else {
+		$selected = '';
+	}
+	$out = '<option value="'.$value.'" '.$selected.'>'.$caption.'</option>'; 
+	if  ($return) {
+		return $out;
+	}	
+	echo $out;
 }
 
 function beginForm($formName) {
@@ -78,7 +93,7 @@ function beginForm($formName) {
 
 function insertFormOption($caption, $description, $optionCode) {	
 	echo '<tr valign="top">
-            <th scope="row" valign="middle">'.$caption.'</th>
+            <th scope="row" valign="middle" style="width:400px;">'.$caption.'</th>
             <td style="padding-bottom:2px;">';    
     
     echo $optionCode;
@@ -89,7 +104,7 @@ function insertFormOption($caption, $description, $optionCode) {
 }
 
 function pap_config_signup_page() {
-    echo "<h2>" . __( 'Signup options', 'signup-config' ) . "</h2>";
+    echo "<h2>" . __( 'Signup Options', 'signup-config' ) . "</h2>";
 	if (!apiFileExists()) {
         echo 'API file does not exist! Upload it first.';
         return;
@@ -112,7 +127,7 @@ function pap_config_signup_page() {
 
     $recordset = $grid->getRecordset();
     
-    echo 'These options will aply when new affiliate will be inserted to Post Affiliate Pro.';
+    echo 'These options will apply when a new affiliate is automatically created with Post Affiliate Pro.';
 
 	beginForm('pap_config_signup_page');
 	
@@ -131,7 +146,7 @@ function pap_config_signup_page() {
     }
     $papsugnupdefaultparent .= '</select>';
 	
-	insertFormOption('Default parent affiliate', 'Every new affiliate which will be insertet to Post Affiliate Pro through WP, will have this selected affiliate as his parent.', $papsugnupdefaultparent);
+	insertFormOption('Default Parent Affiliate (should be none by default)', 'Every new affiliate account created with Post Affiliate Pro through WP, will have this selected affiliate as his parent.', $papsugnupdefaultparent);
     
     $selectedStatus = get_option('pap-sugnup-default-status');
     $papsugnupdefaultstatus = '<select name="pap-sugnup-default-status">';    
@@ -143,6 +158,16 @@ function pap_config_signup_page() {
     $papsugnupdefaultstatus .= '</select>';
     
     insertFormOption('Default signup status', 'Every new affiliate which will be insertet to Post Affiliate Pro through WP, will have this status.', $papsugnupdefaultstatus);                                                                   
+    
+    $selectedStatus = get_option('pap-sugnup-sendconfiramtionemail');
+    if ($selectedStatus == 'true') {
+    	$checked = 'checked';
+    } else {
+    	$checked;
+    }
+    $papmailconfirmsend = '<input type="checkbox" name="pap-sugnup-sendconfiramtionemail" value="true" '.$checked.'></input>';
+    
+	insertFormOption('Send confiramtion email when new user sign-up', 'When checked, Post Affiliate Pro will notify about new sign-up with an email.', $papmailconfirmsend); 
     
     echo '</table>';
     
@@ -168,8 +193,19 @@ function affiliate_new_user($user_id) {
     if (get_option('pap-sugnup-default-parent')!==false && get_option('pap-sugnup-default-parent')!==null && get_option('pap-sugnup-default-parent')!='') {
         $affiliate->setParentUserId(get_option('pap-sugnup-default-parent'));
     }
+    if (get_option('pap-sugnup-default-status')!==false && get_option('pap-sugnup-default-status')!==null && get_option('pap-sugnup-default-status')!='') {
+        $affiliate->setStatus(get_option('pap-sugnup-default-status'));
+    }
     $affiliate->setData(1, $user->user_level);
     $affiliate->add();
+    
+    if (get_option('pap-sugnup-sendconfiramtionemail' == 'true')) {
+    	try {
+    		$affiliate->sendConfirmationEmail();
+    	} catch (Exception $e) {
+    		return;
+    	}
+    }
 }
 		
 function affiliate_update_user($user_id) {
