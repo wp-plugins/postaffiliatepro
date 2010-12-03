@@ -34,6 +34,7 @@ For more info check out [this page](href='http://www.qualityunit.com/postaffilia
 
 1. Plugin add extra menu to your WP installation
 2. General options screen
+3. Signup options screen
 
 == Changelog ==
 
@@ -65,8 +66,7 @@ For more info check out [this page](href='http://www.qualityunit.com/postaffilia
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-* plugin just created
+* no special requirements, just overwrite plugin files. All should work.
 
 == Arbitrary section ==
 
