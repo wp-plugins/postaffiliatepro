@@ -2,8 +2,8 @@
 Contributors: jurajsim
 Tags: affiliate marketing, pap, post affiliate pro, qualityunit
 Requires at least: 3.0.0
-Tested up to: 3.0.1
-Stable tag: 1.0.8
+Tested up to: 3.0.2
+Stable tag: 1.0.9
 
 This plugin integrates Post Affiliate Pro software into any Wordpress installation.
 
@@ -34,6 +34,7 @@ For more info check out [this page](href='http://www.qualityunit.com/postaffilia
 
 1. Plugin add extra menu to your WP installation
 2. General options screen
+3. Signup options screen
 
 == Changelog ==
 
@@ -65,8 +66,7 @@ For more info check out [this page](href='http://www.qualityunit.com/postaffilia
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-* plugin just created
+* no special requirements, just overwrite plugin files. All should work.
 
 == Arbitrary section ==
 
