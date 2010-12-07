@@ -4,7 +4,7 @@ Plugin Name: Post Affiliate Pro
 Plugin URI: http://www.qualityunit.com/#
 Description: Plugin that enable user signup integration integration with Post Affiliate Pro
 Author: QualityUnit
-Version: 1.0.10
+Version: 1.0.11
 Author URI: http://www.qualityunit.com
 License: GPL2
 */
@@ -188,8 +188,7 @@ function pap_config_signup_page() {
 function resolve_parent_from_cookie(Gpf_Api_Session $session, Pap_Api_Affiliate $affiliate) {
 	$clickTracker = new Pap_Api_ClickTracker($session);
     try {  
-        $clickTracker->track();
-        $clickTracker->save3rdPartyCookiesOnly();
+        $clickTracker->track();        
     } catch (Exception $e) {
     }
     if ($clickTracker->getAffiliate() != null) {
@@ -203,8 +202,7 @@ function affiliate_new_user($user_id) {
     if($login == false) {				
         return;
     }
-    $user = new WP_User($user_id);
-    
+    $user = new WP_User($user_id);    
     $affiliate = new Pap_Api_Affiliate($session);
     $affiliate->setUsername($user->user_email);
     $affiliate->setFirstname(($user->first_name=='')?' ':$user->first_name);
