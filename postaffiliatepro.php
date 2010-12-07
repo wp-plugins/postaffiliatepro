@@ -4,7 +4,7 @@ Plugin Name: Post Affiliate Pro
 Plugin URI: http://www.qualityunit.com/#
 Description: Plugin that enable user signup integration integration with Post Affiliate Pro
 Author: QualityUnit
-Version: 1.0.8
+Version: 1.0.11
 Author URI: http://www.qualityunit.com
 License: GPL2
 */
@@ -133,8 +133,15 @@ function pap_config_signup_page() {
 	
 	$selectedOption = get_option('pap-sugnup-default-parent');
 	$papsugnupdefaultparent = '<select name="pap-sugnup-default-parent">';
-	if ($selectedOption!= '') {
+	if ($selectedOption== '') {
 		$papsugnupdefaultparent .= '<option selected value="">none</option>';
+	} else {
+		$papsugnupdefaultparent .= '<option value="">none</option>';
+	}
+	if ($selectedOption=='cookie') {
+		$papsugnupdefaultparent .= '<option selected value="cookie">resolved from cookie</option>';
+	} else {
+		$papsugnupdefaultparent .= '<option value="cookie">resolved from cookie</option>';
 	}
     foreach($recordset as $rec) {
       if ($selectedOption == $rec->get('id'))  {
@@ -154,10 +161,11 @@ function pap_config_signup_page() {
           
     $papsugnupdefaultstatus .= print_option('A', 'Approved', $selectedStatus, true);
     $papsugnupdefaultstatus .= print_option('P', 'Pending', $selectedStatus, true);
-    $papsugnupdefaultstatus .= print_option('D', 'Declined', $selectedStatus, true);        
+    $papsugnupdefaultstatus .= print_option('D', 'Declined', $selectedStatus, true);
+    $papsugnupdefaultstatus .= print_option('', 'defaut', $selectedStatus, true);
     $papsugnupdefaultstatus .= '</select>';
     
-    insertFormOption('Default signup status', 'Every new affiliate which will be insertet to Post Affiliate Pro through WP, will have this status.', $papsugnupdefaultstatus);                                                                   
+    insertFormOption('Default signup status', 'Every new affiliate which will be insertet to Post Affiliate Pro through WP, will have this status. If you set "default", Post Affiliate Pro will handle status by its predefined settings.', $papsugnupdefaultstatus);                                                                   
     
     $selectedStatus = get_option('pap-sugnup-sendconfiramtionemail');
     if ($selectedStatus == 'true') {
@@ -177,22 +185,35 @@ function pap_config_signup_page() {
     echo '</form>';
 }
 
+function resolve_parent_from_cookie(Gpf_Api_Session $session, Pap_Api_Affiliate $affiliate) {
+	$clickTracker = new Pap_Api_ClickTracker($session);
+    try {  
+        $clickTracker->track();        
+    } catch (Exception $e) {
+    }
+    if ($clickTracker->getAffiliate() != null) {
+    	$affiliate->setParentUserId($clickTracker->getAffiliate()->getValue('userid'));
+    }
+}
+
 function affiliate_new_user($user_id) {
     $session = new Gpf_Api_Session(get_option('pap-url') . "/server.php");
     $login = $session->login(get_option('pap-merchant-name'), get_option('pap-merchant-password'));						
     if($login == false) {				
         return;
     }
-    $user = new WP_User($user_id);
-    
+    $user = new WP_User($user_id);    
     $affiliate = new Pap_Api_Affiliate($session);
     $affiliate->setUsername($user->user_email);
     $affiliate->setFirstname(($user->first_name=='')?' ':$user->first_name);
     $affiliate->setLastname(($user->last_name=='')?' ':$user->last_name);
     $affiliate->setNotificationEmail($user->user_email);
-    if (get_option('pap-sugnup-default-parent')!==false && get_option('pap-sugnup-default-parent')!==null && get_option('pap-sugnup-default-parent')!='') {
+    if (get_option('pap-sugnup-default-parent')!==false && get_option('pap-sugnup-default-parent')!==null && get_option('pap-sugnup-default-parent')!='' && get_option('pap-sugnup-default-parent')!='cookie') {
         $affiliate->setParentUserId(get_option('pap-sugnup-default-parent'));
     }
+    if (get_option('pap-sugnup-default-parent')=='cookie') {
+    	resolve_parent_from_cookie($session, $affiliate);
+    }    
     if (get_option('pap-sugnup-default-status')!==false && get_option('pap-sugnup-default-status')!==null && get_option('pap-sugnup-default-status')!='') {
         $affiliate->setStatus(get_option('pap-sugnup-default-status'));
     }
@@ -218,7 +239,11 @@ function affiliate_update_user($user_id) {
     
     $affiliate = new Pap_Api_Affiliate($session);
     $affiliate->setUsername($user->user_email);
-    $affiliate->load();
+    try {
+    	$affiliate->load();
+    } catch (Exception $e) {
+    	return;
+    }
     $affiliate->setFirstname(($user->first_name=='')?' ':$user->first_name);
     $affiliate->setLastname(($user->last_name=='')?' ':$user->last_name);
     $affiliate->setNotificationEmail($user->user_email);
