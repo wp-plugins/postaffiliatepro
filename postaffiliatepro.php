@@ -51,7 +51,7 @@ function pap_config_general_page() {
         <td><input type="text" size="100" name="pap-url" value="'. get_option('pap-url').'" /></td>        
         </tr>
         <tr>
-            <td colspan="2">Example: http://www.yoursite.com/affiliate/scritps</td>
+            <td colspan="2">Example: http://www.yoursite.com/affiliate/scripts</td>
         </tr>                
     </table>';
     echo '<table class="form-table">
