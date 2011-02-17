@@ -14,6 +14,8 @@ This plugin integrates Post Affiliate Pro software into any Wordpress installati
 Supported features:
 
 *	Integrates wordpress users signups with Post Affiliate Pro signups
+*   Integrates Post Affiliate Pro click tracking into Wordpress
+*   Include Top affiliates widget with basic affiliate statistics
 
 == Installation ==
 
@@ -35,8 +37,18 @@ For more info check out [this page](href='http://www.qualityunit.com/postaffilia
 1. Plugin add extra menu to your WP installation
 2. General options screen
 3. Signup options screen
+4. Click tracking options screen
+5. Top affiliates widget config
 
 == Changelog ==
+
+= 1.1.1 =
+* added possibility to insert newly created affiliate to private campaigns
+* added support for click tracking integration
+* added Top affiliates widget where you can see your top affiliates names, commissions, total costs etc. 
+* signup and/or click tracking can now be enabled/disabled
+* many internal chnages, code completly rewritten
+* some minor bugs fixed
 
 = 1.0.8 =
 * corrected some spelling
@@ -69,5 +81,7 @@ For more info check out [this page](href='http://www.qualityunit.com/postaffilia
 * no special requirements, just overwrite plugin files. All should work.
 
 == Arbitrary section ==
+
+Now for form generation purposes php libraby htmlForm from http://stefangabos.blogspot.com/ is used.
 
 If you have any thoughts how to make this plugin better, do not hasitate to leave your ideas in plugin forum.
