@@ -9,7 +9,7 @@
         		<td>{controls.pap-url}</td>        
         	</tr>
 	        <tr>
-	            <td colspan="2">Example: http://www.yoursite.com/affiliate/scripts</td>
+	            <td colspan="2">Example: http://www.yoursite.com/affiliate/</td>
 	        </tr>                
     	</table>
         <table class="form-table">
