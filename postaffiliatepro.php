@@ -4,7 +4,7 @@
  Plugin URI: http://www.qualityunit.com/#
  Description: Plugin that enable user signup integration integration with Post Affiliate Pro
  Author: QualityUnit
- Version: 1.1.0
+ Version: 1.1.1
  Author URI: http://www.qualityunit.com
  License: GPL2
  */
