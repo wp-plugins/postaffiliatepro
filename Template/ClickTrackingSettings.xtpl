@@ -1,0 +1,30 @@
+<!-- BEGIN: main -->
+<div class="wrap">
+	<h2>Click tracking options</h2>
+	These options will apply everytime when some wordpress post page will show to visitor   
+    <form method="post" action="options.php">
+    	{controls.form-settings}
+    	<table class="form-table">
+        	<tr valign="top">
+        		<th scope="row" valign="middle" style="width:400px;">Click tracking integration enabled</th>
+        		<td>{controls.pap-click-tracking-enabled}</td>        
+        	</tr>
+	        <tr>
+	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">Use click tracking integration (if checked, Post Affiliate Pro trcking code will be inserted to every Wordpress post page)</td>
+	        </tr>                
+    	</table>
+    	<table class="form-table">
+        	<tr valign="top">
+        		<th scope="row" valign="middle" style="width:400px;">Account name</th>
+        		<td>{controls.pap-click-tracking-account}</td>
+        	</tr>
+	        <tr>
+	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">Your account name, you want to use with click tracking. By default this is set to "default1" value</td>
+	        </tr>                
+    	</table>
+    	<p class="submit">
+    		{controls.submit}					
+    	</p>
+    </form>
+</div>
+<!-- END: main -->
