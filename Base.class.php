@@ -50,8 +50,17 @@ if (!class_exists('postaffiliatepro_Base')) {
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             
-            $result = curl_exec($ch);               
-            $xml = new SimpleXMLElement($result);
+            $result = curl_exec($ch);
+            libxml_use_internal_errors(true);
+            $xml = simplexml_load_string($result);
+            if (!$xml) {
+                $msg = "";                
+                foreach(libxml_get_errors() as $error) {
+                    $msg .= $error->message;
+                }
+                $this->_log('Unable to parse application version number: ' . $msg);
+                return _('unknown (possible less than 4.5.48.1)');
+            }                   
             return (string) $xml->applications->pap->versionNumber;                      
         }
 
