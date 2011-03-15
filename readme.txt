@@ -2,8 +2,8 @@
 Contributors: jurajsim
 Tags: affiliate marketing, pap, post affiliate pro, qualityunit
 Requires at least: 3.0.0
-Tested up to: 3.0.5
-Stable tag: 1.1.3
+Tested up to: 3.1
+Stable tag: 1.1.4
 
 This plugin integrates Post Affiliate Pro software into any Wordpress installation.
 
@@ -41,6 +41,9 @@ For more info check out [this page](href='http://www.qualityunit.com/postaffilia
 5. Top affiliates widget config
 
 == Changelog ==
+
+= 1.1.4 =
+* fixed critical error with disappearing content
 
 = 1.1.3 =
 * fixed crash on plugin load: Warning: SimpleXMLElement::__construct() [simplexmlelement.--construct]: Entity: line 39: parser error : Opening and ending tag mismatch: ...
