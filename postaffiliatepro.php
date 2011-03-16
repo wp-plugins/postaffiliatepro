@@ -4,7 +4,7 @@
  Plugin URI: http://www.qualityunit.com/#
  Description: Plugin that enable user signup integration integration with Post Affiliate Pro
  Author: QualityUnit
- Version: 1.1.4
+ Version: 1.1.5
  Author URI: http://www.qualityunit.com
  License: GPL2
  */
@@ -106,7 +106,7 @@ if (!class_exists('postaffiliatepro')) {
             add_action('user_register', array($this, 'onNewUserRegistration'));
             add_action('profile_update', array($this, 'onUpdateExistingUser'));
             
-            add_filter ('the_content', array($this, 'insertIntegrationCode'));
+            add_filter ('wp_head', array($this, 'insertIntegrationCodeToHead'), 99);
                         
             add_action('widgets_init', create_function('', 'return register_widget("postaffiliatepro_Widget_TopAffiliates");'));
             
@@ -123,7 +123,7 @@ if (!class_exists('postaffiliatepro')) {
             return $url;
         }
         
-        public function insertIntegrationCode($content) {
+        public function insertIntegrationCodeToHead($content) {
             if (get_option(self::CLICK_TRACKING_ENABLED_SETTING_NAME) != 'true') {
                 return $content;
             }
