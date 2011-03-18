@@ -4,7 +4,7 @@
  Plugin URI: http://www.qualityunit.com/#
  Description: Plugin that enable user signup integration integration with Post Affiliate Pro
  Author: QualityUnit
- Version: 1.1.5
+ Version: 1.2.1
  Author URI: http://www.qualityunit.com
  License: GPL2
  */
@@ -50,6 +50,9 @@ if (!class_exists('postaffiliatepro')) {
         const TOP_AFFILAITES_ORDER_ASC = 'pap-top-affiliates-order-asc';
         const TOP_AFFILAITES_LIMIT = 'pap-top-affiliates-limit';
         const TOP_AFFILAITES_ROW_TEMPLATE = 'pap-top-affiliates-row-template';
+        
+        const SHORTCODES_SETTINGS_PAGE_NAME = 'shortcodes-settings-page';
+        const AFFILAITE_SHORTCODE_CACHE = 'affiliate-shortcode_cache';
 
         public function __construct() {
             $init = new postaffiliatepro_lib_Initializer();
@@ -68,6 +71,7 @@ if (!class_exists('postaffiliatepro')) {
             $this->initForms();
             $this->initWidgets();
             $this->initPlugin();
+            $this->initShortcodes();
         }
         
         private function initWidgets() {
@@ -99,6 +103,13 @@ if (!class_exists('postaffiliatepro')) {
         private function getPapIconURL() {
             return $this->getImgUrl() . '/menu-icon.png';
         }
+        
+        private function initShortcodes() {
+            require_once WP_PLUGIN_DIR . '/postaffiliatepro/Shortcode/Cache.class.php';
+            require_once WP_PLUGIN_DIR . '/postaffiliatepro/Shortcode/Affiliate.class.php';
+            
+            add_shortcode('affiliate', array($this, 'getAffiliateShortCode'));          
+        }
 
         private function initPlugin() {
             add_action('admin_init', array($this, 'initSettings'));
@@ -110,6 +121,11 @@ if (!class_exists('postaffiliatepro')) {
                         
             add_action('widgets_init', create_function('', 'return register_widget("postaffiliatepro_Widget_TopAffiliates");'));
             
+        }
+        
+        public function getAffiliateShortCode($attr, $content = null) {                   
+            $affiliate = new Shortcode_Affiliate();
+            return $affiliate->getCode($attr, $content);
         }
         
         public function widgetTopAffiliates($args) {
@@ -306,6 +322,7 @@ if (!class_exists('postaffiliatepro')) {
             register_setting(self::TOP_AFFILAITES_WIDGET_SETTINGS_PAGE_NAME, self::TOP_AFFILAITES_ORDER_ASC);
             register_setting(self::TOP_AFFILAITES_WIDGET_SETTINGS_PAGE_NAME, self::TOP_AFFILAITES_LIMIT);
             register_setting(self::TOP_AFFILAITES_WIDGET_SETTINGS_PAGE_NAME, self::TOP_AFFILAITES_ROW_TEMPLATE);
+            register_setting(self::SHORTCODES_SETTINGS_PAGE_NAME, self::AFFILAITE_SHORTCODE_CACHE);
         }
 
         public function addPrimaryConfigMenu() {

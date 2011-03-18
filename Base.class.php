@@ -63,6 +63,10 @@ if (!class_exists('postaffiliatepro_Base')) {
             }                   
             return (string) $xml->applications->pap->versionNumber;                      
         }
+        
+        protected function getApiSessionUrl() {
+            return get_option(postaffiliatepro::PAP_URL_SETTING_NAME) . "scripts/server.php";
+        }
 
         /**
          * @return Gpf_Api_Session
@@ -71,7 +75,7 @@ if (!class_exists('postaffiliatepro_Base')) {
             if (self::$session !== null) {
                 return self::$session;
             }
-            $session = new Gpf_Api_Session(get_option(postaffiliatepro::PAP_URL_SETTING_NAME) . "scripts/server.php");
+            $session = new Gpf_Api_Session($this->getApiSessionUrl());
             try {
                 $login = $session->login(get_option(postaffiliatepro::PAP_MERCHANT_NAME_SETTING_NAME), get_option(postaffiliatepro::PAP_MERCHANT_PASSWORD_SETTING_NAME));
             } catch (Gpf_Api_IncompatibleVersionException $e) {

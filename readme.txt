@@ -3,7 +3,7 @@ Contributors: jurajsim
 Tags: affiliate marketing, pap, post affiliate pro, qualityunit
 Requires at least: 3.0.0
 Tested up to: 3.1
-Stable tag: 1.1.5
+Stable tag: 1.2.1
 
 This plugin integrates Post Affiliate Pro software into any Wordpress installation.
 
@@ -16,6 +16,7 @@ Supported features:
 *	Integrates wordpress users signups with Post Affiliate Pro signups
 *   Integrates Post Affiliate Pro click tracking into Wordpress
 *   Include Top affiliates widget with basic affiliate statistics
+*   Shortcode for affiliates 
 
 == Installation ==
 
@@ -32,6 +33,33 @@ Supported features:
 Post Affiliate Pro is an award-winning affiliate software designed to empower or establish new affiliate program.
 For more info check out [this page](href='http://www.qualityunit.com/postaffiliatepro/ "Affiliate software")
 
+= How can I use affialite shortcode? =
+
+Here are few examples of usage:
+[affiliate item="name"/] - prints name of currently loaded affiliate.
+[affiliate item="loginur"/] - prints link "Affiliate panel" that affiliate can use to login to his panel 
+[affiliate item="loginur" caption="Log me in!"/] - prints link "Log me in!" that affiliate can use to login to his panel
+[affiliate item="OTHER_ATTRIBUTES"/] - prints other affiliate attributes.  OTHER_ATTRIBUTES can be one of these items:
+* userid - id of user
+* refid - user referral id
+* rstatus - user status
+* minimumpayout - amount of minimum payout for user
+* payoutoptionid - id of payout option used by user 
+* note - user note
+* photo - url of user image
+* username - username
+* rpassword - user passwrod
+* firstname - user first name
+* lastname - user last name
+* parentuserid - id od parent user
+* ip - user signup ip
+* notificationemail - user notification email
+* data1 to data25 - user data fields
+
+example of getting user notification email:
+[affiliate item="notificationemail"]
+
+
 == Screenshots ==
 
 1. Plugin add extra menu to your WP installation
@@ -39,8 +67,16 @@ For more info check out [this page](href='http://www.qualityunit.com/postaffilia
 3. Signup options screen
 4. Click tracking options screen
 5. Top affiliates widget config
+6. You can also use shortcodes
 
 == Changelog ==
+
+= 1.2.1 =
+* small bugfixes 
+* added chache for affialite login links urls
+
+= 1.2.0 =
+* add "affiliate" shortcode
 
 = 1.1.5 =
 * fixed critical error with broken shortcodes
