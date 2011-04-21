@@ -1,0 +1,42 @@
+<!-- BEGIN: main -->
+<div class="wrap">
+	<h2>Contact form 7 contact commission options</h2>
+	Here you can set up commission which will be registered in Post Affiliate Pro after someone fill contact form and send it  
+    <form method="post" action="options.php">
+    	{controls.form-settings}
+    	<table class="form-table">
+    		<tr valign="top">
+        		<th colspan="2" scope="row" valign="middle" style="width:400px;">Form</th>
+        		<td>{controls.contact7-contact-commission-form}</td>        
+        	</tr>
+	        <tr>
+	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">One of Contact form 7 forms collection</td>
+	        </tr>
+        	<tr valign="top">
+        		<th colspan="2" scope="row" valign="middle" style="width:400px;">Commission amount</th>
+        		<td>{controls.contact7-contact-commission-amount}</td>        
+        	</tr>
+	        <tr>
+	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">Amount of commission</td>
+	        </tr>                
+	        <tr valign="top">
+        		<th colspan="2" scope="row" valign="middle" style="width:400px;">Campaign</th>
+        		<td>{controls.contact7-contact-commission-campaign}</td>        
+        	</tr>
+	        <tr>
+	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">Register commission to specified campaign</td>
+	        </tr>
+	        <tr valign="top">
+        		<th colspan="2" scope="row" valign="middle" style="width:400px;">Store form</th>
+        		<td>{controls.contact7-contact-commission-store-form}</td>        
+        	</tr>
+	        <tr>
+	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">Store form data in data1 field with transaction (format field1_name: value1, field2_name: value2, ...)</td>
+	        </tr>
+    	</table>    	
+    	<p class="submit">
+    		{controls.submit}					
+    	</p>
+    </form>
+</div>
+<!-- END: main -->

@@ -4,7 +4,7 @@
  Plugin URI: http://www.qualityunit.com/#
  Description: Plugin that enable user signup integration integration with Post Affiliate Pro
  Author: QualityUnit
- Version: 1.2.1
+ Version: 1.2.2
  Author URI: http://www.qualityunit.com
  License: GPL2
  */
@@ -32,15 +32,15 @@ if (!class_exists('postaffiliatepro')) {
         const SIGNUP_DEFAULT_STATUS_SETTING_NAME = 'pap-sugnup-default-status';
         const SIGNUP_SEND_CONFIRMATION_EMAIL_SETTING_NAME = 'pap-sugnup-sendconfiramtionemail';
         const SIGNUP_CAMPAIGNS_SETTINGS_SETTING_NAME = 'pap-sugnup-campaigns-settings';
-        
+
         //click tracking integration page
         const CLICK_TRACKING_SETTINGS_PAGE_NAME = 'pap_config_click_tracking_page';
-        
+
         const CLICK_TRACKING_ENABLED_SETTING_NAME = 'pap-click-tracking-enabled';
         const CLICK_TRACKING_ACCOUNT_SETTING_NAME = 'pap-click-tracking-account';
-        
+
         const DEFAULT_ACCOUNT_NAME = 'default1';
-        
+
         //top affiliates widget options
         const TOP_AFFILAITES_WIDGET_SETTINGS_PAGE_NAME = 'pap-top-affiliates-widget-settings-page';
         const TOP_AFFILAITES_REFRESHTIME = 'pap-top-affiliates-refresh-time';
@@ -50,9 +50,21 @@ if (!class_exists('postaffiliatepro')) {
         const TOP_AFFILAITES_ORDER_ASC = 'pap-top-affiliates-order-asc';
         const TOP_AFFILAITES_LIMIT = 'pap-top-affiliates-limit';
         const TOP_AFFILAITES_ROW_TEMPLATE = 'pap-top-affiliates-row-template';
-        
+
         const SHORTCODES_SETTINGS_PAGE_NAME = 'shortcodes-settings-page';
         const AFFILAITE_SHORTCODE_CACHE = 'affiliate-shortcode_cache';
+
+        //specail integrations page
+        const INTEGRATIONS_SETTINGS_PAGE_NAME = 'pap-integrations-config-page';
+
+        const CONTACT7_SIGNUP_COMMISSION_ENABLED = 'contact7-signup-commission-enabled';
+
+        //contact form 7 integration page
+        const CONTACT7_SIGNUP_COMMISSION_CONFIG_PAGE = 'contact7-signup-commission-config-page';
+        const CONTACT7_CONTACT_COMMISSION_AMOUNT = 'contact7-contact-commission-amount';
+        const CONTACT7_CONTACT_COMMISSION_CAMPAIGN = 'contact7-contact-commission-campaign';
+        const CONTACT7_CONTACT_COMMISSION_FORM = 'contact7-contact-commission-form';
+        const CONTACT7_CONTACT_COMMISSION_STORE_FORM = 'contact7-contact-commission-store-form';        
 
         public function __construct() {
             $init = new postaffiliatepro_lib_Initializer();
@@ -73,7 +85,7 @@ if (!class_exists('postaffiliatepro')) {
             $this->initPlugin();
             $this->initShortcodes();
         }
-        
+
         private function initWidgets() {
             require_once WP_PLUGIN_DIR . '/postaffiliatepro/Widget/TopAffiliates.class.php';
         }
@@ -81,6 +93,7 @@ if (!class_exists('postaffiliatepro')) {
         private function initUtils() {
             require_once WP_PLUGIN_DIR . '/postaffiliatepro/Util/CampaignHelper.class.php';
             require_once WP_PLUGIN_DIR . '/postaffiliatepro/Util/TopAffiliatesHelper.class.php';
+            require_once WP_PLUGIN_DIR . '/postaffiliatepro/Util/ContactForm7Helper.class.php';
         }
 
         private function initForms() {
@@ -90,6 +103,8 @@ if (!class_exists('postaffiliatepro')) {
             require_once WP_PLUGIN_DIR . '/postaffiliatepro/Form/Settings/Campaigns.class.php';
             require_once WP_PLUGIN_DIR . '/postaffiliatepro/Form/Settings/CampaignInfo.class.php';
             require_once WP_PLUGIN_DIR . '/postaffiliatepro/Form/Settings/ClickTracking.class.php';
+            require_once WP_PLUGIN_DIR . '/postaffiliatepro/Form/Settings/Integrations.class.php';
+            require_once WP_PLUGIN_DIR . '/postaffiliatepro/Form/Settings/ContactForm7.class.php';
         }
 
         private function includePapApiFile() {
@@ -103,12 +118,12 @@ if (!class_exists('postaffiliatepro')) {
         private function getPapIconURL() {
             return $this->getImgUrl() . '/menu-icon.png';
         }
-        
+
         private function initShortcodes() {
             require_once WP_PLUGIN_DIR . '/postaffiliatepro/Shortcode/Cache.class.php';
             require_once WP_PLUGIN_DIR . '/postaffiliatepro/Shortcode/Affiliate.class.php';
-            
-            add_shortcode('affiliate', array($this, 'getAffiliateShortCode'));          
+
+            add_shortcode('affiliate', array($this, 'getAffiliateShortCode'));
         }
 
         private function initPlugin() {
@@ -116,29 +131,73 @@ if (!class_exists('postaffiliatepro')) {
             add_action('admin_menu', array($this, 'addPrimaryConfigMenu'));
             add_action('user_register', array($this, 'onNewUserRegistration'));
             add_action('profile_update', array($this, 'onUpdateExistingUser'));
-            
+            //contact7
+            add_action('wpcf7_mail_sent', array($this, 'addContactForm7ContactCommission'));
+
             add_filter ('wp_head', array($this, 'insertIntegrationCodeToHead'), 99);
-                        
             add_action('widgets_init', create_function('', 'return register_widget("postaffiliatepro_Widget_TopAffiliates");'));
-            
+
+        }
+
+        private function getFormData($form) {
+            if (count($form->posted_data) == 0) {
+                return '';
+            }
+            $output = '';
+            foreach ($form->posted_data as $key => $field) {
+                $output .= $key . ': ' . $field . ', ';
+            }
+            return substr($output,0,-2);
         }
         
-        public function getAffiliateShortCode($attr, $content = null) {                   
+        private function commissionEnabledForForm($form) {
+            if (get_option(self::CONTACT7_CONTACT_COMMISSION_FORM) == '0') {
+                return true;
+            }
+            return get_option(self::CONTACT7_CONTACT_COMMISSION_FORM) == $form->id;
+        }
+
+        public function addContactForm7ContactCommission($form) {
+            if (!$this->contactForm7ContactCommissionEnabled()) {
+                $this->_log(__('Contact form 7 contact commission disabled. Skipping action.'));
+                return $form;
+            }
+            if (!$this->commissionEnabledForForm($form)) {
+                $this->_log(__('Contact form 7 contact commission not enabled for form ' . $form->unit_tag . '. Skipping action.'));
+                return $form;
+            }
+            $saleTracker = new Pap_Api_SaleTracker($this->getApiSessionUrl());
+            $sale1 = $saleTracker->createSale();
+            $sale1->setTotalCost(get_option(self::CONTACT7_CONTACT_COMMISSION_AMOUNT));
+            if ($this->contactForm7ContactCommissionStoreForm()) {
+                $sale1->setData1($this->getFormData($form));
+            }
+            if (get_option(self::CONTACT7_CONTACT_COMMISSION_CAMPAIGN) != '') {
+                $sale1->setCampaignId(get_option(self::CONTACT7_CONTACT_COMMISSION_CAMPAIGN));
+            }
+            try {
+                $saleTracker->register();
+            } catch (Exception $e) {
+                $this->_log(__('Error during registering contact commission: ' . $e->getMessage()));
+            }
+        }
+
+        public function getAffiliateShortCode($attr, $content = null) {
             $affiliate = new Shortcode_Affiliate();
             return $affiliate->getCode($attr, $content);
         }
-        
+
         public function widgetTopAffiliates($args) {
             $widget = new postaffiliatepro_Widget_TopAffiliates($args);
             $widget->render();
         }
-        
+
         private function parseServerPathForClickTrackingCode() {
             $url = str_replace ('https://', '', get_option(self::PAP_URL_SETTING_NAME));
             $url = str_replace ('http://', '', $url);
             return $url;
         }
-        
+
         public function insertIntegrationCodeToHead($content) {
             if (get_option(self::CLICK_TRACKING_ENABLED_SETTING_NAME) != 'true') {
                 return $content;
@@ -217,6 +276,14 @@ if (!class_exists('postaffiliatepro')) {
             return get_option(self::SIGNUP_INTEGRATION_ENABLED_SETTING_NAME) == 'true';
         }
 
+        private function contactForm7ContactCommissionEnabled() {
+            return postaffiliatepro_Util_ContactForm7Helper::formsExists() && get_option(self::CONTACT7_SIGNUP_COMMISSION_ENABLED) == 'true';
+        }
+
+        private function contactForm7ContactCommissionStoreForm() {
+            return get_option(self::CONTACT7_CONTACT_COMMISSION_STORE_FORM) == 'true';
+        }
+
         public function onNewUserRegistration($user_id) {
             if (!$this->signupIntegrationEnabled()) {
                 $this->_log(__("Signup integratoin disabled - skipping new affiliate creation"));
@@ -236,7 +303,7 @@ if (!class_exists('postaffiliatepro')) {
             $affiliate->add();
 
             if (get_option(self::SIGNUP_SEND_CONFIRMATION_EMAIL_SETTING_NAME) == 'true') {
-                try {               
+                try {
                     $affiliate->sendConfirmationEmail();
                 } catch (Exception $e) {
                     $this->_log(__("Error on sending confirmation email"));
@@ -269,12 +336,12 @@ if (!class_exists('postaffiliatepro')) {
             $campaigns = $this->getCampaignHelper()->getCampaignsList();
             if ($campaigns === null) {
                 return;
-            }            
+            }
             foreach ($campaigns as $campaign) {
                 if ($campaign->get(postaffiliatepro_Util_CampaignHelper::CAMPAIGN_TYPE) != postaffiliatepro_Util_CampaignHelper::CAMPAIGN_TYPE_PUBLIC) {
                     if ($this->getCampaignOption($campaign->get(postaffiliatepro_Util_CampaignHelper::CAMPAIGN_ID), postaffiliatepro_Form_Settings_CampaignInfo::ADD_TO_CAMPAIGN) == 'true') {
-                        $this->assignToCampaign($affiliate, $campaign->get(postaffiliatepro_Util_CampaignHelper::CAMPAIGN_ID), 
-                            $this->getCampaignOption($campaign->get(postaffiliatepro_Util_CampaignHelper::CAMPAIGN_ID), postaffiliatepro_Form_Settings_CampaignInfo::SEND_NOTIFICATION_EMAIL));
+                        $this->assignToCampaign($affiliate, $campaign->get(postaffiliatepro_Util_CampaignHelper::CAMPAIGN_ID),
+                        $this->getCampaignOption($campaign->get(postaffiliatepro_Util_CampaignHelper::CAMPAIGN_ID), postaffiliatepro_Form_Settings_CampaignInfo::SEND_NOTIFICATION_EMAIL));
                     }
                 }
             }
@@ -323,12 +390,21 @@ if (!class_exists('postaffiliatepro')) {
             register_setting(self::TOP_AFFILAITES_WIDGET_SETTINGS_PAGE_NAME, self::TOP_AFFILAITES_LIMIT);
             register_setting(self::TOP_AFFILAITES_WIDGET_SETTINGS_PAGE_NAME, self::TOP_AFFILAITES_ROW_TEMPLATE);
             register_setting(self::SHORTCODES_SETTINGS_PAGE_NAME, self::AFFILAITE_SHORTCODE_CACHE);
+            register_setting(self::INTEGRATIONS_SETTINGS_PAGE_NAME, self::CONTACT7_SIGNUP_COMMISSION_ENABLED);
+            register_setting(self::CONTACT7_SIGNUP_COMMISSION_CONFIG_PAGE, self::CONTACT7_CONTACT_COMMISSION_AMOUNT);
+            register_setting(self::CONTACT7_SIGNUP_COMMISSION_CONFIG_PAGE, self::CONTACT7_CONTACT_COMMISSION_CAMPAIGN);
+            register_setting(self::CONTACT7_SIGNUP_COMMISSION_CONFIG_PAGE, self::CONTACT7_CONTACT_COMMISSION_FORM);
+            register_setting(self::CONTACT7_SIGNUP_COMMISSION_CONFIG_PAGE, self::CONTACT7_CONTACT_COMMISSION_STORE_FORM);
         }
 
         public function addPrimaryConfigMenu() {
             add_menu_page(__('Post Affiliate Pro','pap-menu'), __('PostAffiliatePro','pap-menu'), 'manage_options', 'pap-top-level-options-handle', array($this, 'printGeneralConfigPage'), $this->getPapIconURL());
             add_submenu_page('pap-top-level-options-handle', __('Signup','signup-config'), __('Signup options','signup-config'), 'manage_options', 'signup-config-page', array($this, 'printSignupConfigPage'));
             add_submenu_page('pap-top-level-options-handle', __('Click tracking','click-tracking-config'), __('Click tracking','click-tracking-config'), 'manage_options', 'click-tracking-config-page', array($this, 'printClickTrackingConfigPage'));
+            add_menu_page(__('Integrations'), __('Integrations'), 'manage_options', 'integrations-config-page-handle', array($this, 'printSpecialIntegrationsConfigPage'), $this->getPapIconURL());
+            if (postaffiliatepro_Util_ContactForm7Helper::formsExists()) {
+                add_submenu_page('integrations-config-page-handle', __('Contact form 7','contact-form-7-settings'), __('Contact form 7','contact-form-7-settings'), 'manage_options', 'contact-form-7-settings-page', array($this, 'printContactForm7ConfigPage'));
+            }
         }
 
         public function printGeneralConfigPage() {
@@ -341,9 +417,21 @@ if (!class_exists('postaffiliatepro')) {
             $form->render();
             return;
         }
-        
+
         public function printClickTrackingConfigPage() {
             $form = new postaffiliatepro_Form_Settings_ClickTracking();
+            $form->render();
+            return;
+        }
+
+        public function printSpecialIntegrationsConfigPage() {
+            $form = new postaffiliatepro_Form_Settings_Integrations();
+            $form->render();
+            return;
+        }
+
+        public function printContactForm7ConfigPage() {
+            $form = new postaffiliatepro_Form_Settings_ContactForm7();
             $form->render();
             return;
         }
