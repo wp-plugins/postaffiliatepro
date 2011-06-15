@@ -5,11 +5,16 @@ Requires at least: 3.0.0
 Tested up to: 3.1
 Stable tag: 1.2.2
 
-This plugin integrates Post Affiliate Pro software into any Wordpress installation.
+This plugin integrates Post Affiliate Pro software into any Wordpress installation. 
+Post Affiliate Pro is one of the leaders on the market with affiliate tracking softwares. It is ultimate solution for all types of businesses.
 
 == Description ==
 
-This plugin integrates Post Affiliate Pro software into any Wordpress installation. You can find more info about the software [here](href='http://www.qualityunit.com/postaffiliatepro/ "Affiliate software")
+This plugin integrates Post Affiliate Pro - affiliate software into any Wordpress installation.
+Post Affiliate Pro is award winning affiliate software with complete set of affiliate marketing features.
+You can rely on bullet-proof click/sale tracking technology, which combines multiple tracking methods into one powerful tracking system.
+ 
+You can find more info about the software [here](href='http://www.qualityunit.com/postaffiliatepro/#wordpress "Affiliate software")
 
 Supported features:
 
@@ -22,19 +27,21 @@ Supported features:
 == Installation ==
 
 1. Create directory postaffiliatepro in '/wp-content/plugins/'
-1. Unzip `postaffiliatepro.zip` to the `/wp-content/plugins/postaffiliatepro` directory
-1. Login to you Post Affiliate Pro installation as merchant and go to Main menu -> Tools -> Integration -> API Integration
-1. From this window download your API file by clicking on 'Download PAP API' link
-1. Upload PapApi.class.php file to your plugin directory /wp-content/plugins/postaffiliatepro
+2. Unzip `postaffiliatepro.zip` to the `/wp-content/plugins/postaffiliatepro` directory
+3. Login to you Post Affiliate Pro installation as merchant and go to Main menu -> Tools -> Integration -> API Integration
+4. From this window download your API file by clicking on 'Download PAP API' link
+5. Upload PapApi.class.php file to your plugin directory /wp-content/plugins/postaffiliatepro
+6. Activate Post Affiliate Pro plugin
+7. Set user credentials in plugin settings.
 
 == Frequently Asked Questions ==
 
 = What is Post Affiliate Pro? =
 
-Post Affiliate Pro is an award-winning affiliate software designed to empower or establish new affiliate program.
-For more info check out [this page](href='http://www.qualityunit.com/postaffiliatepro/ "Affiliate software")
+Post Affiliate Pro is an award-winning affiliate tracking software designed to empower or establish in-house affiliate program.
+For more info check out [this page](href='http://www.qualityunit.com/postaffiliatepro/#wordpress "Affiliate software")
 
-= How can I use affialite shortcode? =
+= How can I use affiliate shortcode? =
 
 Here are few examples of usage:
 [affiliate item="name"/] - prints name of currently loaded affiliate.
