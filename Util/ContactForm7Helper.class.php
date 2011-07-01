@@ -13,18 +13,24 @@ class postaffiliatepro_Util_ContactForm7Helper extends postaffiliatepro_Base {
 
     public static function formsExists() {
         global $wpdb;
-        
+
         $querystr = "SELECT count(*) as count 	from wp_contact_form_7";
-        $count = $wpdb->get_results($querystr);      
+        try {
+            $count = $wpdb->get_results($querystr);
+        } catch (Exception $e) {
+            return 0;
+        }
+        if (!array_key_exists(0, $count))  {
+            return 0;
+        }
         return $count[0]->count;
     }
-    
+
     public static function getFormList() {
         global $wpdb;
-        
         $querystr = "SELECT cf7_unit_id, title from wp_contact_form_7";
-        $rows = $wpdb->get_results($querystr);      
+        $rows = $wpdb->get_results($querystr);
         return $rows;
     }
-    
+
 }

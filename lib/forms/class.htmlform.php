@@ -23,7 +23,7 @@
  */
 
 // error_reporting(E_ALL);
-
+if (!class_exists('HTMLForm')) {
 class HTMLForm
 {
 
@@ -1305,5 +1305,5 @@ class HTMLForm
     }
 
 }
-
+}
 ?>
