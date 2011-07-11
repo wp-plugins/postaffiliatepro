@@ -7,6 +7,7 @@
  *
  *   Licensed under GPL2
  */
-
-class LibraryInitializationExceptiopn extends Exception {}
+if (!class_exists('LibraryInitializationException')) {
+    class LibraryInitializationExceptiopn extends Exception {}
+}
 ?>
