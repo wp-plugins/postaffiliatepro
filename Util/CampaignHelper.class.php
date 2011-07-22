@@ -39,6 +39,9 @@ class postaffiliatepro_Util_CampaignHelper extends postaffiliatepro_Base {
     
     public function getCampaignsCount($type = null) {        
         $campaignList = $this->getCampaignsList();
+        if ($campaignList === null) {
+            return 0;
+        }
         if ($type === null) {
             return $campaignList->getSize();
         }
