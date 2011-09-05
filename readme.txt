@@ -3,7 +3,7 @@ Contributors: jurajsim
 Tags: affiliate marketing, pap, post affiliate pro, qualityunit
 Requires at least: 3.0.0
 Tested up to: 3.2.1
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 
 This plugin integrates Post Affiliate Pro software into any Wordpress installation. 
 Post Affiliate Pro is one of the leaders on the market with affiliate tracking softwares. It is ultimate solution for all types of businesses.
@@ -45,10 +45,15 @@ For more info check out [this page](href='http://www.qualityunit.com/postaffilia
 = How can I use affiliate shortcode? =
 
 Here are few examples of usage:
+
 [affiliate item="name"/] - prints name of currently loaded affiliate.
-[affiliate item="loginur"/] - prints link "Affiliate panel" that affiliate can use to login to his panel 
+
+[affiliate item="loginur"/] - prints link "Affiliate panel" that affiliate can use to login to his panel
+ 
 [affiliate item="loginur" caption="Log me in!"/] - prints link "Log me in!" that affiliate can use to login to his panel
+
 [affiliate item="OTHER_ATTRIBUTES"/] - prints other affiliate attributes.  OTHER_ATTRIBUTES can be one of these items:
+
 * userid - id of user
 * refid - user referral id
 * rstatus - user status
@@ -66,8 +71,12 @@ Here are few examples of usage:
 * data1 to data25 - user data fields
 
 example of getting user notification email:
+
 [affiliate item="notificationemail"]
 
+= Is it possible to integrate this plugin with s2Member? =
+Yes it is. But you must have in mind, that you should not use any mandatory fields in Post Affiliate Pro signup.
+You should use only optional fields.
 
 == Screenshots ==
 
@@ -79,6 +88,9 @@ example of getting user notification email:
 6. You can also use shortcodes
 
 == Changelog ==
+
+= 1.2.6 =
+* readme.txt changed - small changes
 
 = 1.2.5 =
 * tested on WP 3.2.1
