@@ -22,7 +22,7 @@ Supported features:
 *   Integrates Post Affiliate Pro click tracking into Wordpress
 *   Include Top affiliates widget with basic affiliate statistics
 *   Shortcode for affiliates 
-*   Integration with Contact form 7 (http://contactform7.com/)
+*   Integration with Contact form 7 (http://contactform7.com/) till version 3 (not included)
 *   Also work with S2 member
 
 == Installation ==
