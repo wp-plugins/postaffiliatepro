@@ -3,7 +3,7 @@ Contributors: jurajsim
 Tags: affiliate marketing, pap, post affiliate pro, qualityunit
 Requires at least: 3.0.0
 Tested up to: 3.2.1
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 
 This plugin integrates Post Affiliate Pro software into any Wordpress installation. 
 Post Affiliate Pro is one of the leaders on the market with affiliate tracking softwares. It is ultimate solution for all types of businesses.
@@ -78,6 +78,9 @@ example of getting user notification email:
 Yes it is. But you must have in mind, that you should not use any mandatory fields in Post Affiliate Pro signup.
 You should use only optional fields.
 
+= Is it possible to integrate this plugin with Magic members? =
+Yes it is. But this feature is just experimental at this time.
+
 == Screenshots ==
 
 1. Plugin add extra menu to your WP installation
@@ -88,6 +91,9 @@ You should use only optional fields.
 6. You can also use shortcodes
 
 == Changelog ==
+
+= 1.2.7 =
+* experimental support for Magic members Wordpress plugin
 
 = 1.2.6 =
 * readme.txt changed - small changes
