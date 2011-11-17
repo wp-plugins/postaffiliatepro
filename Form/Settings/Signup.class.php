@@ -30,6 +30,7 @@ class postaffiliatepro_Form_Settings_Signup extends postaffiliatepro_Form_Base {
             return array();
         }
         $request = new Pap_Api_AffiliatesGrid($this->getApiSession());
+        $request->addParam('columns', new Gpf_Rpc_Array(array(array('id'), array('username'), array('firstname'), array('lastname'))));
         $request->setLimit(0, 5000);
         try {
             $request->sendNow();
