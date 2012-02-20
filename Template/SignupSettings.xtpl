@@ -33,7 +33,7 @@
     	</table>
     	<table class="form-table">
         	<tr valign="top">
-        		<th scope="row" valign="middle" style="width:400px;">Send confiramtion email when new user sign-up</th>
+        		<th scope="row" valign="middle" style="width:400px;">Send confirmation email when new user sign-up</th>
         		<td>{controls.pap-sugnup-sendconfiramtionemail}</td>        
         	</tr>
 	        <tr>
