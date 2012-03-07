@@ -37,6 +37,12 @@ Supported features:
 
 == Frequently Asked Questions ==
 
+= Q: After update, all menus are gone and plugin is not working at all =
+A: In situation like this you should check your PapApi.class.php file in your PostAffiliatePro plugin directory.
+In most of the cases, this file was missing after update and that caused plugin malfunction.
+Without PapApi.class.php file plugin can not operate correctly and because of thet it disable its self to prevent
+damaging the main pages with error or warning messages etc.
+
 = What is Post Affiliate Pro? =
 
 Post Affiliate Pro is an award-winning affiliate tracking software designed to empower or establish in-house affiliate program.
