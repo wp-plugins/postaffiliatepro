@@ -2,8 +2,8 @@
 Contributors: jurajsim
 Tags: affiliate marketing, pap, post affiliate pro, qualityunit
 Requires at least: 3.0.0
-Tested up to: 3.2.1
-Stable tag: 1.2.9
+Tested up to: 3.3.1
+Stable tag: 1.2.12
 
 This plugin integrates Post Affiliate Pro software into any Wordpress installation. 
 Post Affiliate Pro is one of the leaders on the market with affiliate tracking softwares. It is ultimate solution for all types of businesses.
@@ -36,6 +36,12 @@ Supported features:
 7. Set user credentials in plugin settings.
 
 == Frequently Asked Questions ==
+
+= Q: After update, all menus are gone and plugin is not working at all =
+A: In situation like this you should check your PapApi.class.php file in your PostAffiliatePro plugin directory.
+In most of the cases, this file was missing after update and that caused plugin malfunction.
+Without PapApi.class.php file plugin can not operate correctly and because of thet it disable its self to prevent
+damaging the main pages with error or warning messages etc.
 
 = What is Post Affiliate Pro? =
 
@@ -91,6 +97,14 @@ Yes it is. But this feature is just experimental at this time.
 6. You can also use shortcodes
 
 == Changelog ==
+
+= 1.2.12 =
+* just fixes typos in some texts 
+= 1.2.11 =
+* change some texts
+
+= 1.2.10 =
+* just typos in some texts
 
 = 1.2.9 =
 * just typos in some texts
