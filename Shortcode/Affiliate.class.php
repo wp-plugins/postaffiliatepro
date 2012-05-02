@@ -23,7 +23,7 @@ class Shortcode_Affiliate extends postaffiliatepro_Base {
     
     public function getCode($atts, $content = null) {        
         global $current_user;
-        if ($current_user->id == 0) {
+        if ($current_user->ID == 0) {
             return;
         }
         $session = $this->getApiSession();
@@ -31,7 +31,7 @@ class Shortcode_Affiliate extends postaffiliatepro_Base {
             $this->_log('Error getting session for login to PAP. Check WP logs for details.');
             return;
         }        
-        $affiliate = new Pap_Api_Affiliate();
+        $affiliate = new Pap_Api_Affiliate($session);
         $affiliate->setUsername($current_user->user_email);
         try {
             $affiliate->load();
