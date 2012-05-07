@@ -3,7 +3,7 @@ Contributors: jurajsim
 Tags: affiliate marketing, pap, post affiliate pro, qualityunit
 Requires at least: 3.0.0
 Tested up to: 3.3.1
-Stable tag: 1.2.13
+Stable tag: 1.2.14
 
 This plugin integrates Post Affiliate Pro software into any Wordpress installation. 
 Post Affiliate Pro is one of the leaders on the market with affiliate tracking softwares. It is ultimate solution for all types of businesses.
@@ -47,6 +47,10 @@ damaging the main pages with error or warning messages etc.
 
 Post Affiliate Pro is an award-winning affiliate tracking software designed to empower or establish in-house affiliate program.
 For more info check out [this page](href='http://www.qualityunit.com/postaffiliatepro/#wordpress "Affiliate software")
+
+= Can Post Affilate Pro user use same passowrd as in Wordpress? =
+
+No. This is not possible at the moment. Passwords will be always different.
 
 = How can I use affiliate shortcode? =
 
@@ -98,7 +102,10 @@ Yes it is. But this feature is just experimental at this time.
 
 == Changelog ==
 
-= 1.2.12 =
+= 1.2.14 =
+* descriptions fixing
+
+= 1.2.13 =
 * shortcodes problmes fix
 
 = 1.2.12 =
