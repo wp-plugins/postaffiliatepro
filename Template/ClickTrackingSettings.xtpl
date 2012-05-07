@@ -10,7 +10,7 @@
         		<td>{controls.pap-click-tracking-enabled}</td>        
         	</tr>
 	        <tr>
-	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">Use click tracking integration (if checked, Post Affiliate Pro tracking code will be inserted to every Wordpress post page)</td>
+	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">Use click tracking integration (if checked, Post Affiliate Pro tracking code will be inserted to every Wordpress page)</td>
 	        </tr>                
     	</table>
     	<table class="form-table">
