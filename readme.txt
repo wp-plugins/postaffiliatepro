@@ -2,8 +2,8 @@
 Contributors: jurajsim
 Tags: affiliate marketing, pap, post affiliate pro, qualityunit
 Requires at least: 3.0.0
-Tested up to: 3.3.1
-Stable tag: 1.2.14
+Tested up to: 3.4
+Stable tag: 1.2.15
 
 This plugin integrates Post Affiliate Pro software into any Wordpress installation. 
 Post Affiliate Pro is one of the leaders on the market with affiliate tracking softwares. It is ultimate solution for all types of businesses.
@@ -101,6 +101,9 @@ Yes it is. But this feature is just experimental at this time.
 6. You can also use shortcodes
 
 == Changelog ==
+
+= 1.2.15 =
+* shortcodes descriptions fixing
 
 = 1.2.14 =
 * descriptions fixing
