@@ -58,9 +58,9 @@ Here are few examples of usage:
 
 [affiliate item="name"/] - prints name of currently loaded affiliate.
 
-[affiliate item="loginur"/] - prints link "Affiliate panel" that affiliate can use to login to his panel
+[affiliate item="loginurl"/] - prints link "Affiliate panel" that affiliate can use to login to his panel
  
-[affiliate item="loginur" caption="Log me in!"/] - prints link "Log me in!" that affiliate can use to login to his panel
+[affiliate item="loginurl" caption="Log me in!"/] - prints link "Log me in!" that affiliate can use to login to his panel
 
 [affiliate item="OTHER_ATTRIBUTES"/] - prints other affiliate attributes.  OTHER_ATTRIBUTES can be one of these items:
 
