@@ -10,16 +10,16 @@
         		<td>{controls.pap-sugnup-integration-enabled}</td>        
         	</tr>
 	        <tr>
-	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">Use signup integration with Post Affiliate Pro (if not checked, no new affiliate is created when user sign up into Wordpress)</td>
+	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">Check this box if you would like to automatically create a new affiliate when a user registers with with your Wordpress software.</td>
 	        </tr>                
     	</table>
     	<table class="form-table">
         	<tr valign="top">
-        		<th scope="row" valign="middle" style="width:400px;">Default Parent Affiliate (should be none by default)</th>
+        		<th scope="row" valign="middle" style="width:400px;">Default Parent Affiliate (should be "resolved by cookie" by default)</th>
         		<td>{controls.pap-sugnup-default-parent}</td>        
         	</tr>
 	        <tr>
-	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">Every new affiliate account created with Post Affiliate Pro through WP, will have this selected affiliate as his parent.</td>
+	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">New PAP affiliate accounts created through your Wordpress software will be assigned to the parent affiliate selected above.</td>
 	        </tr>                
     	</table>
     	<table class="form-table">
@@ -28,16 +28,16 @@
         		<td>{controls.pap-sugnup-default-status}</td>        
         	</tr>
 	        <tr>
-	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">Every new affiliate which will be insertet to Post Affiliate Pro through WP, will have this status. If you set "default", Post Affiliate Pro will handle status by its predefined settings.</td>
+	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">The status of new affiliates created in Post Affiliate Pro through Wordpress will reflect the above setting. If set "default", Post Affiliate Pro will handle the status by its predefined settings.</td>
 	        </tr>                
     	</table>
     	<table class="form-table">
         	<tr valign="top">
-        		<th scope="row" valign="middle" style="width:400px;">Send confirmation email when new user sign-up</th>
+        		<th scope="row" valign="middle" style="width:400px;">Send confirmation email when new user signs up</th>
         		<td>{controls.pap-sugnup-sendconfiramtionemail}</td>        
         	</tr>
 	        <tr>
-	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">When checked, Post Affiliate Pro will notify about new sign-up with an email.</td>
+	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">When checked, Post Affiliate Pro will send an email notification to the customer who signed up, with all the necessary information for affiliate login.</td>
 	        </tr>                
     	</table>
     	
