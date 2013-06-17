@@ -46,6 +46,7 @@ class postaffiliatepro_Util_ContactForm7Helper extends postaffiliatepro_Base {
     }
 
     public static function getFormListNew() {
+        global $wpdb;
         $querystr = "SELECT ID, post_title FROM wp_posts WHERE `post_type` = 'wpcf7_contact_form'";
         $rows = $wpdb->get_results($querystr);
         return $rows;

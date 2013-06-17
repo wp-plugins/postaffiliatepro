@@ -21,7 +21,10 @@ class Shortcode_Cache {
     }
     
     public function getSessionId($username) {
-        $cache = $this->getCahce();        
+        $cache = $this->getCahce();
+        if ($cache == null) {
+            return null;
+        }     
         if (array_key_exists($username, $cache) && (time() - $cache[$username]['created'] < 120)) {
             return $cache[$username]['sessionid'];
         }
