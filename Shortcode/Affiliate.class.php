@@ -31,13 +31,19 @@ class Shortcode_Affiliate extends postaffiliatepro_Base {
             $this->_log('Error getting session for login to PAP. Check WP logs for details.');
             return;
         }        
-        $affiliate = new Pap_Api_Affiliate($session);
-        $affiliate->setUsername($current_user->user_email);
+        $affiliate = new Pap_Api_Affiliate($session);        
+        $affiliate->setUsername($current_user->username);
         try {
             $affiliate->load();
+        } catch (Exception $e) {            
+        }
+        $affiliate = new Pap_Api_Affiliate($session);
+        $affiliate->setUsername($current_user->user_login);
+        try {
+        	$affiliate->load();
         } catch (Exception $e) {
-            $this->_log('Error getting affiliate: ' . $e->getMessage());
-            return;
+        	$this->_log('Error getting affiliate: ' . $e->getMessage());
+        	return;
         }
         if (array_key_exists('item', $atts)) {       
             if ($atts['item'] == 'name') {
