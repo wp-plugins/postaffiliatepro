@@ -3,7 +3,7 @@ Contributors: jurajsim
 Tags: affiliate marketing, pap, post affiliate pro, qualityunit
 Requires at least: 3.0.0
 Tested up to: 3.5.1
-Stable tag: 1.2.22
+Stable tag: 1.2.23
 
 This plugin integrates Post Affiliate Pro software into any Wordpress installation. 
 Post Affiliate Pro is one of the leaders on the market with affiliate tracking softwares. It is ultimate solution for all types of businesses.
@@ -29,11 +29,13 @@ Supported features:
 
 1. Create directory postaffiliatepro in '/wp-content/plugins/'
 2. Unzip `postaffiliatepro.zip` to the `/wp-content/plugins/postaffiliatepro` directory
-3. Login to you Post Affiliate Pro installation as merchant and go to Main menu -> Tools -> Integration -> API Integration
-4. From this window download your API file by clicking on 'Download PAP API' link
-5. Upload PapApi.class.php file to your plugin directory /wp-content/plugins/postaffiliatepro
-6. Activate Post Affiliate Pro plugin
-7. Set user credentials in plugin settings.
+3. Activate Post Affiliate Pro plugin
+4. Set user credentials in plugin settings.
+
+Note: If the plugin does not show up, login to you Post Affiliate Pro installation as merchant and go to Main menu -> Tools -> Integration -> API Integration
+From this window download your API file by clicking on 'Download PAP API' link
+Upload PapApi.class.php file to your plugin directory /wp-content/plugins/postaffiliatepro
+Refresh your WP-Admin panel
 
 == Frequently Asked Questions ==
 

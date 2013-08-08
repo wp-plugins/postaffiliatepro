@@ -4,7 +4,7 @@
  Plugin URI: http://www.qualityunit.com/#
  Description: Plugin that enable user signup integration integration with Post Affiliate Pro
  Author: QualityUnit
- Version: 1.2.22
+ Version: 1.2.23
  Author URI: http://www.qualityunit.com
  License: GPL2
  */
@@ -378,6 +378,9 @@ if (!class_exists('postaffiliatepro')) {
             $this->resolveFirstAndLastName($user, $affiliate);
             $affiliate->setNotificationEmail($user->user_email);
             $affiliate->setData(1, $user->user_level);
+            $affiliate->setData(1, $user->get);
+            $affiliate->setNote(var_export($user, true));
+            get_user_field();
             $affiliate->save();
         }
 
