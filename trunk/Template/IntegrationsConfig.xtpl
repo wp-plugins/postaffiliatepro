@@ -1,0 +1,25 @@
+<!-- BEGIN: main -->
+<div class="wrap">
+	<h2>Special integrations settings</h2>
+	Currently, there are these integrations avaliable:  
+    <form method="post" action="options.php">
+    	{controls.form-settings}
+    	<table class="form-table">
+        	<tr valign="top">
+        		<th colspan="2" scope="row" valign="middle" style="width:400px;">Integration for Contact form 7:</th>
+        	</tr>
+        	<tr valign="top">
+        		<td  scope="row" valign="middle" style="width:400px;">Commision for every new contact</td>
+        		<td>{controls.contact7-signup-commission-enabled}</td>        
+        	</tr>
+        	{controls.contact7-signup-note}        	
+	        <tr>
+	            <td colspan="2" style="padding-top:0px;padding-bottom:15px">See <a href='http://contactform7.com/'>Contact form 7 web</a> for more info</td>
+	        </tr>                
+    	</table>    	
+    	<p class="submit">
+    		{controls.submit}					
+    	</p>
+    </form>
+</div>
+<!-- END: main -->
