@@ -5,16 +5,18 @@ Requires at least: 3.0.0
 Tested up to: 3.6
 Stable tag: 1.2.24
 
-This plugin integrates Post Affiliate Pro software into any Wordpress installation. 
-Post Affiliate Pro is one of the leaders on the market with affiliate tracking softwares. It is ultimate solution for all types of businesses.
+This plugin integrates Post Affiliate Pro software into any WordPress installation. Post Affiliate Pro is the leading affiliate tracking tool with more than 27,000 active customers worldwide. 
+Post Affiliate Pro is the leading affiliate tracking tool with more than 27,000 active customers worldwide.
 
 == Description ==
 
 This plugin integrates Post Affiliate Pro - affiliate software into any Wordpress installation.
 Post Affiliate Pro is award winning affiliate software with complete set of affiliate marketing features.
 You can rely on bullet-proof click/sale tracking technology, which combines multiple tracking methods into one powerful tracking system.
- 
-You can find more info about the software [here](href='http://www.qualityunit.com/postaffiliatepro/#wordpress "Affiliate software")
+
+= Promotional video =
+[vimeo http://vimeo.com/26098217]
+You can find more info about LiveAgent [here](http://www.postaffiliatepro.com/#wordpress "Affiliate software"). 
 
 Supported features:
 
