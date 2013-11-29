@@ -16,7 +16,7 @@ You can rely on bullet-proof click/sale tracking technology, which combines mult
 
 = Promotional video =
 [vimeo http://vimeo.com/26098217]
-You can find more info about LiveAgent [here](http://www.postaffiliatepro.com/#wordpress "Affiliate software"). 
+You can find more info about PostAffiliatePro [here](http://www.postaffiliatepro.com/#wordpress "Affiliate software"). 
 
 Supported features:
 
