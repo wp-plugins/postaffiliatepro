@@ -1,10 +1,10 @@
 <?php
 /*
  Plugin Name: Post Affiliate Pro
- Plugin URI: http://www.qualityunit.com/#
+ Plugin URI: http://www.postaffiliatepro.com
  Description: Plugin that enable user signup integration integration with Post Affiliate Pro
  Author: QualityUnit
- Version: 1.2.24
+ Version: 1.2.25
  Author URI: http://www.qualityunit.com
  License: GPL2
  */
