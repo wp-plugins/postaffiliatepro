@@ -27,7 +27,7 @@ class Shortcode_Affiliate extends postaffiliatepro_Base {
     private function loadAffiliate(Gpf_Api_Session $session) {
         global $current_user;
         $affiliate = new Pap_Api_Affiliate($session);
-        $affiliate->setUsername($current_user->username);
+        $affiliate->setUsername($current_user->user_email);
         try {
             $affiliate->load();
             return $affiliate;
