@@ -2,8 +2,8 @@
 Contributors: jurajsim
 Tags: affiliate marketing, pap, post affiliate pro, qualityunit
 Requires at least: 3.0.0
-Tested up to: 3.6
-Stable tag: 1.2.25
+Tested up to: 3.8
+Stable tag: 1.2.26
 
 This plugin integrates Post Affiliate Pro software into any WordPress installation. Post Affiliate Pro is the leading affiliate tracking tool with more than 27,000 active customers worldwide. 
 Post Affiliate Pro is the leading affiliate tracking tool with more than 27,000 active customers worldwide.
@@ -66,6 +66,8 @@ Here are few examples of usage:
  
 [affiliate item="loginurl" caption="Log me in!"/] - prints link "Log me in!" that affiliate can use to login to his panel
 
+[affiliate item="loginurl_raw"/] - prints raw url link: http://www.yoursite.com/affiliate/affiliates/panel.php?S=sessionid
+
 [affiliate item="OTHER_ATTRIBUTES"/] - prints other affiliate attributes.  OTHER_ATTRIBUTES can be one of these items:
 
 * userid - id of user
@@ -105,6 +107,9 @@ Yes it is. But this feature is just experimental at this time.
 6. You can also use shortcodes
 
 == Changelog ==
+
+= 1.2.26 =
+* added item 'loginurl_raw' to affiliate shortcode for displaying url link
 
 = 1.2.25 =
 * fixed affiliate loading problem

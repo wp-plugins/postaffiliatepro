@@ -9,8 +9,8 @@
  *   Version 1.0 (the "License"); you may not use this file except in compliance
  *   with the License. You may obtain a copy of the License at
  *   http://www.qualityunit.com/licenses/gpf
- *   Generated on: 2013-07-17 01:54:10
- *   PAP version: 5.0.6.2, GPF version: 1.2.1.0
+ *   Generated on: 2013-11-20 00:43:06
+ *   PAP version: 5.0.10.1, GPF version: 1.2.3.0
  *   
  */
 
@@ -6088,7 +6088,9 @@ if (!class_exists('Pap_Api_RecurringCommissionsGrid', false)) {
 
 if (!class_exists('Pap_Api_PayoutsGrid', false)) {
   class Pap_Api_PayoutsGrid extends Gpf_Rpc_GridRequest {
-      
+  
+      const PAP_MERCHANTS_PAYOUT_PAYAFFILIATESFORM_SUCCESS = 'success';
+  
       private $affiliatesToPay = array();
       
       public function __construct(Gpf_Api_Session $session) {
@@ -6106,28 +6108,12 @@ if (!class_exists('Pap_Api_PayoutsGrid', false)) {
               throw new Gpf_Exception('You must select at least one affiliate to pay.');
           }
           try {
-              $this->sendMarkTransactionsCall();
-          } catch (Gpf_Exception $e) {
-              throw new Gpf_Exception('Error during marking as pending payments: ' . $e->getMessage());
-          }
-          try {
              $this->sendPayTransactionsCall($paymentNote, $affiliateNote, $send_payment_to_affiliate, $send_generated_invoices_to_merchant, $send_generated_invoices_to_affiliates);
           } catch (Gpf_Exception $e) {
               throw new Gpf_Exception('Error during paying affiliates: ' . $e->getMessage());
           }
       }
-      
-      protected function sendMarkTransactionsCall() {
-          $request = new Gpf_Rpc_ActionRequest('Pap_Merchants_Payout_PayAffiliatesFormExportGrid', 'markTransactionsAsPaymentPending', $this->apiSessionObject);
-          $request->addParam('ids', new Gpf_Rpc_Array($this->getAffiliatesToPay()));
-          $request->addParam('filters', new Gpf_Rpc_Array($this->getFilters()));
-          $request->sendNow();
-          
-          if ($request->getResponseError() != '') {
-              throw new Gpf_Exception($request->getResponseError());
-          }
-      }
-      
+  
       protected function sendPayTransactionsCall($paymentNote, $affiliateNote, $send_payment_to_affiliate, $send_generated_invoices_to_merchant, $send_generated_invoices_to_affiliates) {
           $request = new Gpf_Rpc_FormRequest('Pap_Merchants_Payout_PayAffiliatesForm', 'payAffiliates', $this->apiSessionObject);
           $request->setField('paymentNote', $paymentNote);
@@ -6135,13 +6121,20 @@ if (!class_exists('Pap_Api_PayoutsGrid', false)) {
           $request->setField('send_payment_to_affiliate', $send_payment_to_affiliate);
           $request->setField('send_generated_invoices_to_merchant', $send_generated_invoices_to_merchant);
           $request->setField('send_generated_invoices_to_affiliates', $send_generated_invoices_to_affiliates);
+          $request->addParam('ids', new Gpf_Rpc_Array($this->getAffiliatesToPay()));
+          $request->addParam('filters', new Gpf_Rpc_Array($this->getFilters()));
           $request->sendNow();
-         
+  
           if ($request->getResponseError() != '') {
               throw new Gpf_Exception($request->getResponseError());
           }
+          $response = $request->getStdResponse();
+  
+          if ($response->success == 'Y' && strpos($response->infoMessage, self::PAP_MERCHANTS_PAYOUT_PAYAFFILIATESFORM_SUCCESS) !== 0 ) {
+              $request->sendNow();
+          }
       }
-      
+  
       public function addAllAffiliatesToPay() {
           $this->checkMerchantRole();
           try {
@@ -6224,6 +6217,6 @@ if (!class_exists('Gpf_Net_Http_Client', false)) {
 }
 /*
 VERSION
-06dca9d4b3ea0dddfe5ba2c7a8d59c41
+5733732e200f45c446001161c29d8c0d
 */
 ?>

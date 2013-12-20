@@ -70,7 +70,10 @@ class Shortcode_Affiliate extends postaffiliatepro_Base {
                 } else {
                     return '<a href="'.$this->getLoginUrl($session).'" target="_blank">Affiliate panel</a>';
                 }
-
+            }
+			if ($atts['item'] == 'loginurl_raw') {
+                $session = $this->getSessionId($affiliate);
+                return $this->getLoginUrl($session);
             }
             return $affiliate->getField($atts['item']);
         }
