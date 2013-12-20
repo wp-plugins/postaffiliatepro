@@ -109,7 +109,7 @@ Yes it is. But this feature is just experimental at this time.
 == Changelog ==
 
 = 1.2.26 =
-* added affiliate loading problem
+* added item 'loginurl_raw' to affiliate shortcode for displaying url link
 
 = 1.2.25 =
 * fixed affiliate loading problem
