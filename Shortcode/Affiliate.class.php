@@ -27,7 +27,7 @@ class Shortcode_Affiliate extends postaffiliatepro_Base {
     private function loadAffiliate(Gpf_Api_Session $session) {
         global $current_user;
         $affiliate = new Pap_Api_Affiliate($session);
-        $affiliate->setUsername($current_user->username);
+        $affiliate->setUsername($current_user->user_email);
         try {
             $affiliate->load();
             return $affiliate;
@@ -70,7 +70,10 @@ class Shortcode_Affiliate extends postaffiliatepro_Base {
                 } else {
                     return '<a href="'.$this->getLoginUrl($session).'" target="_blank">Affiliate panel</a>';
                 }
-
+            }
+			if ($atts['item'] == 'loginurl_raw') {
+                $session = $this->getSessionId($affiliate);
+                return $this->getLoginUrl($session);
             }
             return $affiliate->getField($atts['item']);
         }
