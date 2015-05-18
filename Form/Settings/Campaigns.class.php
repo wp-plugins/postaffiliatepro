@@ -46,9 +46,7 @@ class postaffiliatepro_Form_Settings_Campaigns extends postaffiliatepro_Form_Bas
         $this->addHtml('campaigns-list', $content);
     }
 
-    public function render() {        
+    public function render($toVar = false) {        
         return parent::render(true);
     }
 }
-
-?>

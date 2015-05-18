@@ -58,7 +58,7 @@ class postaffiliatepro_Form_Settings_Signup extends postaffiliatepro_Form_Base {
         $this->parseBlock('campaigns', array('campaigns-content' => $campaignsForm->render()));
     }
 
-    public function render() {        
+    public function render($toVar = false) {        
         if ($this->getApiSession() !== null) {
             parent::render();
             return;
@@ -66,5 +66,3 @@ class postaffiliatepro_Form_Settings_Signup extends postaffiliatepro_Form_Base {
         $this->renderTemplate(WP_PLUGIN_DIR . '/postaffiliatepro/Template/SignupSettingsNoSession.xtpl');
     }
 }
-
-?>

@@ -65,9 +65,7 @@ class postaffiliatepro_Form_Settings_CampaignInfo extends postaffiliatepro_Form_
         }
     }
 
-    public function render() {        
+    public function render($toVar = false) {        
         return parent::render(true);
     }
 }
-
-?>

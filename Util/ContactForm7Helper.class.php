@@ -10,7 +10,7 @@ License: GPL2
 */
 
 class postaffiliatepro_Util_ContactForm7Helper extends postaffiliatepro_Base {
-
+	
     public static function formsExists() {
         global $wpdb;
 
@@ -18,7 +18,7 @@ class postaffiliatepro_Util_ContactForm7Helper extends postaffiliatepro_Base {
             return self::formsExistsNew();
         }
 
-        $querystr = "SELECT count(*) as count 	from wp_contact_form_7";
+        $querystr = "SELECT count(*) as count from wp_contact_form_7";
         try {
             $row = $wpdb->get_results($querystr);
         } catch (Exception $e) {
@@ -33,7 +33,10 @@ class postaffiliatepro_Util_ContactForm7Helper extends postaffiliatepro_Base {
     public static function formsExistsNew() {
         global $wpdb;
 
-        $querystr = "SELECT count(*) AS count FROM wp_posts WHERE `post_type` = 'wpcf7_contact_form'";
+		$db_prefix = $wpdb->prefix;
+
+		//$querystr = "SELECT ID, post_title FROM wp_posts WHERE `post_type` = 'wpcf7_contact_form'";
+        $querystr = "SELECT count(*) AS count FROM ".$db_prefix."posts WHERE `post_type` = 'wpcf7_contact_form'";        
         try {
             $row = $wpdb->get_results($querystr);
         } catch (Exception $e) {
@@ -47,7 +50,11 @@ class postaffiliatepro_Util_ContactForm7Helper extends postaffiliatepro_Base {
 
     public static function getFormListNew() {
         global $wpdb;
-        $querystr = "SELECT ID, post_title FROM wp_posts WHERE `post_type` = 'wpcf7_contact_form'";
+        
+		$db_prefix = $wpdb->prefix;
+
+        //$querystr = "SELECT ID, post_title FROM wp_posts WHERE `post_type` = 'wpcf7_contact_form'";
+        $querystr = "SELECT ID, post_title FROM ".$db_prefix."posts WHERE `post_type` = 'wpcf7_contact_form'";        
         $rows = $wpdb->get_results($querystr);
         return $rows;
     }
