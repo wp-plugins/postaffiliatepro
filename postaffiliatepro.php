@@ -4,7 +4,7 @@
  Plugin URI: http://www.postaffiliatepro.com
  Description: Plugin that enable user signup integration integration with Post Affiliate Pro
  Author: QualityUnit
- Version: 1.2.26
+ Version: 1.2.28
  Author URI: http://www.qualityunit.com
  License: GPL2
  */
@@ -312,11 +312,13 @@ if (!class_exists('postaffiliatepro')) {
             }
 
             if (get_option(self::SIGNUP_SEND_CONFIRMATION_EMAIL_SETTING_NAME) == 'true') {
-                try {
-                    $affiliate->sendConfirmationEmail();
-                } catch (Exception $e) {
-                    $this->_log(__("Error on sending confirmation email"));
-                    return;
+                if (get_option(self::SIGNUP_INTEGRATION_ENABLED_SETTING_NAME) == 'false' || get_option('aff_notification_signup_approved_declined') == 'N') {
+                    try {
+                        $affiliate->sendConfirmationEmail();
+                    } catch (Exception $e) {
+                        $this->_log(__("Error on sending confirmation email"));
+                        return;
+                    }
                 }
             }
             $this->processCampaigns($affiliate);
@@ -448,4 +450,3 @@ if (!class_exists('postaffiliatepro')) {
 }
 
 $postaffiliatepro = new postaffiliatepro();
-?>
