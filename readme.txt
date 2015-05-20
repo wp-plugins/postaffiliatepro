@@ -2,8 +2,8 @@
 Contributors: jurajsim
 Tags: affiliate marketing, pap, post affiliate pro, qualityunit
 Requires at least: 3.0.0
-Tested up to: 3.8
-Stable tag: 1.2.30
+Tested up to: 4.2.2
+Stable tag: 1.2.31
 
 This plugin integrates Post Affiliate Pro software into any WordPress installation. Post Affiliate Pro is the leading affiliate tracking tool with more than 27,000 active customers worldwide. 
 Post Affiliate Pro is the leading affiliate tracking tool with more than 27,000 active customers worldwide.
@@ -108,7 +108,7 @@ Yes it is. But this feature is just experimental at this time.
 
 == Changelog ==
 
-= 1.2.30 =
+= 1.2.31 =
 * fixed some PHP notifiation
 
 = 1.2.27 =
