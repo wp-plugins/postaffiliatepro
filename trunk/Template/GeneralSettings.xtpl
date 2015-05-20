@@ -1,0 +1,58 @@
+<!-- BEGIN: main -->
+<div class="wrap">
+	<h2>Post Affiliate Pro general options </h2>
+    <form method="post" action="options.php">
+    	{controls.form-settings}            
+    	<table class="form-table">
+        	<tr valign="top">
+        		<th scope="row" valign="middle">Post Affiliate Pro URL</th>
+        		<td>{controls.pap-url}</td>        
+        	</tr>
+	        <tr>
+	            <td colspan="2">Example: http://www.yoursite.com/affiliate/</td>
+	        </tr>                
+    	</table>
+        <table class="form-table">
+        	<tr valign="top">
+        		<th scope="row" valign="middle">Merchant Name</th>
+        		<td>{controls.pap-merchant-name}</td>        
+        	</tr>               
+    	</table>
+        <table class="form-table">
+        	<tr valign="top">
+        		<th scope="row" valign="middle">Merchant Password</th>
+        		<td>{controls.pap-merchant-password}</td>        
+        	</tr>               
+    	</table>
+    	<!-- BEGIN: login_check_ok -->
+    	<table class="form-table">
+    		<tr>
+    			<td style="color:#2B7508;">Successfully connected to your Post Affiliate Pro installation</td>        
+        	</tr>               
+    	</table>    		
+    	<!-- END: login_check_ok -->
+    	<!-- BEGIN: installation_info -->
+    	<table class="form-table">
+    		<tr>
+    			<td>Application version: <span style="font-style:italic;">{pap-version}</span></td>
+        	</tr>               
+    	</table>
+    	<table class="form-table">
+    		<tr>
+    			<td>You should have Post Affilate Pro in version 4.5.67.3 or above to enjoy full functionality. Lower versions will not support assigning affiliates to private campaigns.</td>
+        	</tr>               
+    	</table>
+    	<!-- END: installation_info -->    	
+    	<!-- BEGIN: login_check_failed -->
+    	<table class="form-table">
+    		<tr>
+    			<td style="color:#750808;">Unable to connect to Post Affiliate Pro Installation - check your settings!</td>     
+        	</tr>               
+    	</table>    		
+    	<!-- END: login_check_failed -->
+        <p class="submit">
+    		{controls.submit}					
+    	</p>
+    </form>
+</div>
+<!-- END: main -->
