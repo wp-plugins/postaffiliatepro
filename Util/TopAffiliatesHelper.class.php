@@ -31,7 +31,7 @@ class postaffiliatepro_Util_TopAffiliatesHelper extends postaffiliatepro_Base {
         $session = $this->getApiSession();
         $request = new Gpf_Rpc_GridRequest("Pap_Merchants_User_TopAffiliatesGrid", "getRows", $session);
         $request->setLimit(0, $limit);
-        $request->addParam('columns', new Gpf_Rpc_Array(array(array('id'), array('id'), array(self::COL_COMMISSIONS), array(self::COL_SALES_COUNT), array(self::COL_RAW_CLICKS), array(self::COL_RAW_IMPS))));
+        $request->addParam('columns', new Gpf_Rpc_Array(array(array('id'), array('id'), array('parentuserid'), array(self::COL_COMMISSIONS), array(self::COL_SALES_COUNT), array(self::COL_RAW_CLICKS), array(self::COL_RAW_IMPS))));
         
         $request->addParam('sort_col', $orderBy);
         if ($orderAsc == 'true') {

@@ -36,8 +36,6 @@ class postaffiliatepro_Widget_TopAffiliates extends WP_Widget {
             'lastname',
         	'userid',
         	'parentuserid',
-        	'parentfirstname',
-        	'parentlastname',
             'impressionsRaw',
         	'clicksRaw',
         	'salesCount',
