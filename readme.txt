@@ -3,7 +3,7 @@ Contributors: jurajsim
 Tags: affiliate marketing, pap, post affiliate pro, qualityunit
 Requires at least: 3.0.0
 Tested up to: 4.2.2
-Stable tag: 1.2.31
+Stable tag: 1.2.32
 
 This plugin integrates Post Affiliate Pro software into any WordPress installation. Post Affiliate Pro is the leading affiliate tracking tool with more than 27,000 active customers worldwide. 
 Post Affiliate Pro is the leading affiliate tracking tool with more than 27,000 active customers worldwide.
@@ -107,6 +107,9 @@ Yes it is. But this feature is just experimental at this time.
 6. You can also use shortcodes
 
 == Changelog ==
+
+= 1.2.32 =
+* add load of parentusreid in Top Affiliates, at least 5.3.28 version of Pap is needed
 
 = 1.2.31 =
 * fixed some PHP notifiation
